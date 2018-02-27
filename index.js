@@ -6,6 +6,7 @@ import SimpleMarkdown from 'simple-markdown'
 import _ from 'lodash'
 import initialRules from './rules'
 import initialStyles from './styles'
+import { fixTrees } from './fix-tree'
 
 type Props = {
   styles: StyleSheet,
@@ -60,8 +61,9 @@ class Markdown extends Component<DefaultProps, Props, void> {
       const tree = SimpleMarkdown.parserFor(rules)(blockSource, {
         inline: false
       })
+      const fixedTree = fixTrees(tree)
       return SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, 'react'))(
-        tree
+        fixedTree
       )
     } catch (errors) {
       this.props.errorHandler
