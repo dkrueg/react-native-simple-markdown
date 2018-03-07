@@ -15,13 +15,11 @@ export function mergeTrees(trees) {
 }
 
 export function fixTree(tree) {
-  switch (tree.type) {
-    case "text":
-      return tree
-
-    default:
-      const fixedSubtrees = fixTrees(tree.content)
-      return { ...tree, content: fixedSubtrees }
+  if ('content' in tree) {
+    const fixedSubtrees = fixTrees(tree.content)
+    return { ...tree, content: fixedSubtrees }
+  } else {
+    return tree
   }
 }
 
