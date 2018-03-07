@@ -15,7 +15,7 @@ export function mergeTrees(trees) {
 }
 
 export function fixTree(tree) {
-  if ('content' in tree) {
+  if ('content' in tree && tree.type !== 'text') {
     const fixedSubtrees = fixTrees(tree.content)
     return { ...tree, content: fixedSubtrees }
   } else {
